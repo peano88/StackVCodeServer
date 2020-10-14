@@ -44,4 +44,8 @@ RUN git clone https://github.com/haskell/haskell-language-server --recurse-submo
 RUN cd haskell-language-server && stack install.hs hls
 
 # vcode server
+RUN curl -fsSL https://code-server.dev/install.sh | sh
 # Go!
+COPY scripts/init.sh /home/alonzo/.local/bin/init.sh
+
+CMD init.sh alonzo
