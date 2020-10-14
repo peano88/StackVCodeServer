@@ -22,30 +22,31 @@ RUN apt-get update && apt-get install -y \
     libgmp-dev
 
 # Create user and give permission
+ARG user=alonzo
 RUN \
-	groupadd -g 500 -r alonzo && \
-	useradd -m -d /home/alonzo alonzo -u 500 -g alonzo && \
-	echo alonzo:alonzo | chpasswd && \
+	groupadd -g 500 -r $user && \
+	useradd -m -d /home/$user $user -u 500 -g $user && \
+	echo $user:$user | chpasswd && \
 	echo root:root | chpasswd && \
-	usermod -aG sudo alonzo
+	usermod -aG sudo $user
 
-RUN echo 'alonzo:alonzo' | chpasswd
-RUN echo 'alonzo    ALL=NOPASSWD: ALL' >> /etc/sudoers
+RUN echo "${user}    ALL=NOPASSWD: ALL" >> /etc/sudoers
 
-USER alonzo
-WORKDIR /home/alonzo
+USER $user
+WORKDIR /home/$user
 
-# install Stack (this takes time)
+# install Stack 
 RUN wget -qO- https://get.haskellstack.org | sh
-ENV PATH="/home/alonzo/.local/bin:${PATH}"
+ENV PATH="/home/${user}/.local/bin:${PATH}"
 
-# install HLS
+# # install HLS (this takes time)
 RUN git clone https://github.com/haskell/haskell-language-server --recurse-submodules
 RUN cd haskell-language-server && stack install.hs hls
 
-# vcode server
+# # vcode server
 RUN curl -fsSL https://code-server.dev/install.sh | sh
-# Go!
-COPY scripts/init.sh /home/alonzo/.local/bin/init.sh
+# # Go!
+COPY --chown=$user:$user scripts/init.sh /home/$user/.local/bin/init.sh
+RUN chmod u+x /home/$user/.local/bin/init.sh
 
-CMD init.sh alonzo
+CMD init.sh
