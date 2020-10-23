@@ -10,7 +10,7 @@ function run_vscode_server () {
     pushd "/home/$user/.config/code-server" > /dev/null
     [ -f config.yaml ] || vscode_server_config
     popd > /dev/null
-    
+
     code-server
 }
 
