@@ -18,9 +18,9 @@ $ ./stack_vcodeserver.sh
 
 Time to open your browser and point to `localhost:8080` : your brand new environment is ready for you to develop. Fire up the terminal (you might need to change it to /bin/bash) and tap:
 ```bash
-$ stack new hello_world
+$ stack new hello-world
 ``` 
-As expected you will have created a new project named ` hello_world`
+As expected you will have created a new project named ` hello-world`
 
 ![hello-world](img/hello-world)
 
