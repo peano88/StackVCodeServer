@@ -3,23 +3,23 @@ FROM ubuntu:latest
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
     apt-utils \
-    sudo \
     curl \
-    wget \
-    git  \
+    sudo \
     g++  \
     gcc \
+    git  \
+    gnupg \ 
     libc6-dev \
     libffi-dev \ 
-    libgmp-dev \ 
+    libicu-dev \ 
+    libgmp-dev \
+    libncurses-dev \ 
     make \ 
+    netbase \
+    wget \
     xz-utils \ 
     zlib1g-dev \
-    gnupg \ 
-    netbase \
-    libicu-dev \ 
-    libncurses-dev \ 
-    libgmp-dev
+    && rm -rf /var/lib/apt/lists/*
 
 # Create user and give permission
 ARG user=alonzo
