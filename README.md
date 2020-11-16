@@ -6,15 +6,17 @@ StackVCodeServer allows to have a ready-to-go development environment including 
 
 Retrieve the image from the docker hub
 ```bash
-$ docker pull peano88/stack-code:version0.1
+$ docker pull peano88/stack-code
 ```  
 > The default image will use a special created user ` alonzo`. If this is not OK with you and you want to change the user name you can build the image yourself using the included Dockerfile and providing the username as build argument ` user` . 
 
-Once the image downloaded use the ` stack_vcodeserver.sh`  script to start a container. Please be aware that you might need to edit such script if you changed the default username of the image.
+Once the image downloaded use the ` stack_vcodeserver.sh`  script to start a container
 
 ```bash
-$ ./stack_vcodeserver.sh
+$ ./stack_vcodeserver.sh exec
 ```  
+
+Check below for more information on this script.
 
 Time to open your browser and point to `localhost:8080` : your brand new environment is ready for you to develop. Fire up the terminal (you might need to change it to /bin/bash) and tap:
 ```bash
@@ -56,6 +58,22 @@ The script will create a docker volume and use it in the container to share the 
 
 ## Customize code-server
 You can increase security, change default options and so on. You can do it directly in the container: since we are using a volume, all changes are persisted and will stay after reboot of the container. You can refer to the documentation available directly in the [code-server repository][3] to discover all available options.
+
+## stack_vcodeserver.sh script
+This script is used to easily launch the development container. Here the various options:
+```bash
+stack_vcodeserver 
+USAGE: stack_vcodeserver [OPTIONS]... COMMAND where 
+OPTIONS:
+        -h|--help:                       show this help
+        -v|--volume VOLUME:              use VOLUME as volume name. Default is "StackVCodeVol"
+        -i|--image IMAGE:                use IMAGE as image name. Default is "peano88/stack-code"
+        -c|--container CONTAINER:        use CONTAINER as container name. Default is "stack_vcode"
+        -u|--container USER:             use USER as the running user. Default is "alonzo"
+COMMAND:
+        exec:                            run the container
+        build:                           recreate the container (and run it)
+```
 
 [1]:https://github.com/haskell/haskell-language-server
 [2]:https://docs.haskellstack.org/en/stable/README/
