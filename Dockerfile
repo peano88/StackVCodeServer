@@ -42,6 +42,7 @@ ENV PATH="/home/${user}/.local/bin:${PATH}"
 # # install HLS (this takes time)
 RUN git clone https://github.com/haskell/haskell-language-server --recurse-submodules
 RUN cd haskell-language-server && stack install.hs hls
+RUN cd $WORKDIR && rm -rf haskell-language-server
 
 # # vcode server
 RUN curl -fsSL https://code-server.dev/install.sh | sh
