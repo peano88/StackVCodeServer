@@ -18,6 +18,7 @@ OPTIONS:\n\
 COMMAND:\n\
 \texec: \t\t\t\t run the container\n\
 \tbuild: \t\t\t\t recreate the container (and run it)\n\
+\tstop: \t\t\t\t stop the container\n\
 "
 }
 
@@ -87,6 +88,10 @@ function run_container {
     fi
 }
 
+function stop_container {
+    docker stop "$CONTAINER"
+}
+
 function build_container {
     volume 
     if  docker ps -a | grep -q "$CONTAINER"; then
@@ -109,6 +114,9 @@ case "$ACTION" in
     ;;
     build)
         build_container
+    ;;
+    stop)
+        stop_container
     ;;
     *)
         if [ -z $ACTION ]; then 

@@ -73,6 +73,7 @@ OPTIONS:
 COMMAND:
         exec:                            run the container
         build:                           recreate the container (and run it)
+        stop:                            stop the container
 ```
 
 [1]:https://github.com/haskell/haskell-language-server
